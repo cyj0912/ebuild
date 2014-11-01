@@ -29,30 +29,29 @@ DEPEND="${COMMON_DEPEND}
 	app-crypt/gpgme
 	doc? ( app-doc/doxygen
 		app-text/asciidoc )
-	test? ( dev-lang/python )
-	!<=app-shells/bash-completion-2.1-r90"
+	test? ( dev-lang/python )"
 
 RESTRICT="test"
 
-src_prepare() {
+# src_prepare() {
 	# Adds AM_GPGME_PATH call which requires app-crypt/gpgme to be
 	# DEPENDed on unconditionally:
-	epatch "${FILESDIR}"/${PN}-4.0.0-gpgme.patch
+	# epatch "${FILESDIR}"/${PN}-4.0.0-gpgme.patch
 
 	# Remove a line that adds -Werror in ./configure when --enable-debug
 	# is passed:
-	sed -i -e '/-Werror/d' configure.ac || die "-Werror"
+	# sed -i -e '/-Werror/d' configure.ac || die "-Werror"
 
 	# autopoint is unwilling to replace m4/gettext.m4 with the correct
 	# version even though it'll gladly replace */po/Makefile.in.in,
 	# creating an inconsistency between gettext m4 macros and
 	# Makefile.in.in. Also, AM_MKINSTALLDIRS apparently doesn't exist
 	# anymore, so we need newer gettext macros. #420469
-	rm m4/gettext.m4 || die
-	sed -i -e '/AM_GNU_GETTEXT_VERSION/s/0\.13\.1/0.18.1/' configure.ac || die
+	# rm m4/gettext.m4 || die
+	# sed -i -e '/AM_GNU_GETTEXT_VERSION/s/0\.13\.1/0.18.1/' configure.ac || die
 
-	eautoreconf
-}
+	# eautoreconf
+# }
 
 src_configure() {
 	local myeconfargs=(
